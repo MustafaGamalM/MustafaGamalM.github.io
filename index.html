@@ -268,6 +268,7 @@
         }
 
         .hero-photo-wrap {
+            --photo-size: 320px;
             position: relative;
             min-height: 330px;
             display: grid;
@@ -278,8 +279,8 @@
         .hero-photo-wrap::before {
             content: "";
             position: absolute;
-            width: 310px;
-            height: 310px;
+            width: var(--photo-size);
+            height: var(--photo-size);
             border-radius: 50%;
             background: radial-gradient(circle at center, rgba(154, 123, 255, 0.60), rgba(154, 123, 255, 0.04) 74%);
             filter: blur(4px);
@@ -290,19 +291,30 @@
         .hero-photo-wrap::after {
             content: "";
             position: absolute;
-            width: 360px;
-            height: 360px;
+            width: calc(var(--photo-size) + 50px);
+            height: calc(var(--photo-size) + 50px);
             border-radius: 50%;
             border: 1px dashed rgba(162, 173, 255, 0.38);
             animation: spin 16s linear infinite;
             z-index: -1;
         }
 
-        .hero-photo {
-            width: min(370px, 95%);
-            object-fit: contain;
-            filter: drop-shadow(0 18px 26px rgba(0, 0, 0, 0.45));
+        .hero-photo-mask {
+            width: var(--photo-size);
+            height: var(--photo-size);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(189, 197, 255, 0.28);
+            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.36);
             animation: bob 5.2s ease-in-out infinite;
+        }
+
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
         }
 
         .photo-floor {
@@ -651,8 +663,8 @@
                 height: 280px;
             }
 
-            .hero-photo {
-                width: min(280px, 94%);
+            .hero-photo-wrap {
+                --photo-size: 240px;
             }
 
             .project-card img {
@@ -686,12 +698,13 @@
                 </div>
 
                 <div class="hero-photo-wrap">
-                    <img class="hero-photo" src="assets/me.jpeg" alt="Mustafa Gamal portrait">
+                    <div class="hero-photo-mask">
+                        <img class="hero-photo" src="assets/me.jpeg" alt="Mustafa Gamal portrait">
+                    </div>
                     <div class="photo-floor"></div>
                 </div>
 
                 <div class="hero-side hero-right">
-                    <p class="hero-small">Creative</p>
                     <h2><span>Software Engineer</span></h2>
                     <p class="hero-text">
                         I build scalable Flutter and Android apps with clean architecture,
@@ -763,57 +776,58 @@
                     <span class="dot green"></span>
                 </div>
                 <pre><code><span class="code-kw">const</span> mustafaGamal <span class="code-op">=</span> {
-  <span class="code-key">programmingLanguages</span>: [<span class="code-str">"Dart"</span>, <span class="code-str">"Java"</span>, <span class="code-str">"Kotlin"</span>, <span class="code-str">"Python"</span>, <span class="code-str">"C++"</span>, <span class="code-str">"C#"</span>],
-  <span class="code-key">technologies</span>: {
-    <span class="code-key">mobileAppFrameworks</span>: {
-      <span class="code-key">native</span>: [<span class="code-str">"Android Native"</span>],
-      <span class="code-key">crossPlatform</span>: [<span class="code-str">"Flutter"</span>]
-    },
-    <span class="code-key">tools</span>: {
-      <span class="code-key">versionControl</span>: [<span class="code-str">"Git"</span>, <span class="code-str">"GitHub"</span>, <span class="code-str">"GitLab"</span>],
-      <span class="code-key">ciCd</span>: [<span class="code-str">"GitHub Actions"</span>, <span class="code-str">"Codemagic"</span>, <span class="code-str">"Azure DevOps"</span>, <span class="code-str">"Fastlane"</span>]
-    },
-    <span class="code-key">deployment</span>: {
-      <span class="code-key">platforms</span>: [<span class="code-str">"Google Play"</span>, <span class="code-str">"App Store"</span>]
-    }
-  }
+  <span class="code-key">languages</span>: [<span class="code-str">"Dart"</span>, <span class="code-str">"Kotlin"</span>, <span class="code-str">"Java"</span>, <span class="code-str">"C++"</span>, <span class="code-str">"Python"</span>],
+  <span class="code-key">frameworks</span>: [<span class="code-str">"Flutter"</span>, <span class="code-str">"Android SDK"</span>],
+  <span class="code-key">architecture</span>: [<span class="code-str">"MVVM"</span>, <span class="code-str">"Clean Architecture"</span>, <span class="code-str">"MVC"</span>],
+  <span class="code-key">stateManagement</span>: [<span class="code-str">"BLoC"</span>, <span class="code-str">"Provider"</span>, <span class="code-str">"Riverpod"</span>],
+  <span class="code-key">apiNetworking</span>: [<span class="code-str">"REST APIs"</span>, <span class="code-str">"Dio"</span>, <span class="code-str">"Retrofit"</span>],
+  <span class="code-key">firebase</span>: [<span class="code-str">"Authentication"</span>, <span class="code-str">"Firestore"</span>, <span class="code-str">"FCM"</span>, <span class="code-str">"Storage"</span>],
+  <span class="code-key">tools</span>: [<span class="code-str">"Git"</span>, <span class="code-str">"Docker"</span>, <span class="code-str">"Fastlane"</span>],
+  <span class="code-key">deployment</span>: [<span class="code-str">"Google Play"</span>, <span class="code-str">"Apple App Store"</span>]
 };</code></pre>
             </div>
 
             <div class="skills-chips">
-                <span class="chip chip-title">Mobile</span>
-                <span class="chip">Flutter</span>
+                <span class="chip chip-title">Languages</span>
+                <span class="chip">Dart</span>
                 <span class="chip">Kotlin</span>
-                <span class="chip">Android Development</span>
-                <span class="chip">Android Jetpack</span>
-                <span class="chip">Xcode</span>
-                <span class="chip">XML</span>
+                <span class="chip">Java</span>
+                <span class="chip">C++</span>
+                <span class="chip">Python</span>
 
-                <span class="chip chip-title">Backend and Database</span>
+                <span class="chip chip-title">Frameworks</span>
+                <span class="chip">Flutter</span>
+                <span class="chip">Android SDK</span>
+
+                <span class="chip chip-title">Architecture</span>
+                <span class="chip">MVVM</span>
+                <span class="chip">Clean Architecture</span>
+                <span class="chip">MVC</span>
+
+                <span class="chip chip-title">State Management</span>
+                <span class="chip">BLoC</span>
+                <span class="chip">Provider</span>
+                <span class="chip">Riverpod</span>
+
+                <span class="chip chip-title">APIs and Networking</span>
                 <span class="chip">REST APIs</span>
-                <span class="chip">GraphQL</span>
-                <span class="chip">SQL</span>
-                <span class="chip">SQL Server</span>
-                <span class="chip">MySQL</span>
+                <span class="chip">Dio</span>
+                <span class="chip">Retrofit</span>
 
-                <span class="chip chip-title">Engineering</span>
+                <span class="chip chip-title">Firebase</span>
+                <span class="chip">Authentication</span>
+                <span class="chip">Firestore</span>
+                <span class="chip">FCM</span>
+                <span class="chip">Storage</span>
+
+                <span class="chip chip-title">Tools</span>
                 <span class="chip">Git</span>
                 <span class="chip">Docker</span>
-                <span class="chip">Continuous Integration and Continuous Delivery (CI/CD)</span>
-                <span class="chip">Unit Testing</span>
-                <span class="chip">Test-Driven Development</span>
-                <span class="chip">Software Design Patterns</span>
-                <span class="chip">SOLID Design Principles</span>
-                <span class="chip">Object-Oriented Programming (OOP)</span>
-                <span class="chip">Algorithms</span>
-                <span class="chip">Data Structures</span>
+                <span class="chip">Fastlane</span>
 
-                <span class="chip chip-title">Programming Languages</span>
-                <span class="chip">Dart</span>
-                <span class="chip">Python</span>
-                <span class="chip">Java</span>
-                <span class="chip">C#</span>
-                <span class="chip">C++</span>
+                <span class="chip chip-title">Deployment</span>
+                <span class="chip">Google Play</span>
+                <span class="chip">Apple App Store</span>
             </div>
         </div>
     </section>
